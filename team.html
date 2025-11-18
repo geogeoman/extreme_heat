@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究团队 | 极端高温与AI防灾研究</title>
+    <meta name="description" content="了解我们的研究团队，包括专业背景、研究分工和团队成员介绍">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-orange: #f97316;
+            --accent-green: #059669;
+            --neutral-light: #f8fafc;
+            --neutral-dark: #374151;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .serif-font {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(10px);
+            background: rgba(248, 250, 252, 0.9);
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease;
+        }
+        
+        .team-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .avatar-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            border: 3px solid #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+        
+        .role-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .role-leader {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .role-researcher {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        
+        .role-developer {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        .role-designer {
+            background: #fce7f3;
+            color: #be185d;
+        }
+        
+        .splide__slide {
+            padding: 0 1rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">AI</span>
+                    </div>
+                    <span class="serif-font font-bold text-xl text-slate-800">极端高温研究</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-slate-600 hover:text-blue-600 transition-colors">首页</a>
+                    <a href="background.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究背景</a>
+                    <a href="methodology.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究方法</a>
+                    <a href="results.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究成果</a>
+                    <a href="team.html" class="text-blue-600 font-medium">研究团队</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
+            <div class="px-4 py-2 space-y-2">
+                <a href="index.html" class="block py-2 text-slate-600">首页</a>
+                <a href="background.html" class="block py-2 text-slate-600">研究背景</a>
+                <a href="methodology.html" class="block py-2 text-slate-600">研究方法</a>
+                <a href="results.html" class="block py-2 text-slate-600">研究成果</a>
+                <a href="team.html" class="block py-2 text-blue-600 font-medium">研究团队</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center animate-fade-in">
+                <h1 class="serif-font text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-6">
+                    研究团队
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+                    我们是一支跨学科的专业团队，
+                    <br class="hidden md:block">结合气象学、人工智能和数据科学的专长，共同推进极端高温防灾研究
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Overview -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="serif-font text-3xl md:text-4xl font-bold text-slate-800 mb-6">团队组成</h2>
+                <p class="text-xl text-slate-600 max-w-4xl mx-auto">
+                    团队成员来自不同专业背景，具备丰富的研究经验和实践能力
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">数据分析</h3>
+                    <p class="text-slate-600">气象数据处理和统计分析</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">AI技术</h3>
+                    <p class="text-slate-600">机器学习和深度学习应用</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">地理信息</h3>
+                    <p class="text-slate-600">GIS和空间数据分析</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">技术开发</h3>
+                    <p class="text-slate-600">网站开发和可视化实现</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Members -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="serif-font text-3xl md:text-4xl font-bold text-slate-800 mb-6">团队成员</h2>
+                <p class="text-xl text-slate-600 max-w-4xl mx-auto">
+                    每位团队成员都在各自领域具备专业知识和丰富经验
+                </p>
+            </div>
+            
+            <div class="splide" id="team-carousel">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <!-- Team Member 1 -->
+                        <li class="splide__slide">
+                            <div class="team-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center animate-fade-in">
+                                <div class="avatar-placeholder">
+                                    <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">李同学</h3>
+                                <div class="role-badge role-researcher mb-4">数据分析师</div>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                    负责气象数据对比分析和地理可视化，具备扎实的数据处理和统计分析能力。
+                                    专注于温度差异的空间分布模式和时序变化规律研究。
+                                </p>
+                                <div class="flex justify-center space-x-2">
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Python</span>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">R</span>
+                                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">GIS</span>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <!-- Team Member 2 -->
+                        <li class="splide__slide">
+                            <div class="team-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center animate-fade-in">
+                                <div class="avatar-placeholder">
+                                    <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">肖同学</h3>
+                                <div class="role-badge role-researcher mb-4">AI研究员</div>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                    负责AI模型开发和极端高温事件分析，专注于AI幻觉检测和模型优化。
+                                    在自然语言处理和机器学习领域有深入研究。
+                                </p>
+                                <div class="flex justify-center space-x-2">
+                                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">TensorFlow</span>
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">PyTorch</span>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">NLP</span>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <!-- Team Member 3 -->
+                        <li class="splide__slide">
+                            <div class="team-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center animate-fade-in">
+                                <div class="avatar-placeholder">
+                                    <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">冯同学</h3>
+                                <div class="role-badge role-developer mb-4">可视化工程师</div>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                    负责爬虫开发和多媒体内容收集，专注于数据可视化和用户体验设计。
+                                    在网页开发和交互设计方面有丰富经验。
+                                </p>
+                                <div class="flex justify-center space-x-2">
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">JavaScript</span>
+                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">D3.js</span>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">爬虫</span>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <!-- Team Member 4 -->
+                        <li class="splide__slide">
+                            <div class="team-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center animate-fade-in">
+                                <div class="avatar-placeholder">
+                                    <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">沈同学</h3>
+                                <div class="role-badge role-developer mb-4">前端开发</div>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                    负责网站开发和用户界面设计，专注于响应式布局和交互体验优化。
+                                    在现代Web技术方面有深入研究和实践经验。
+                                </p>
+                                <div class="flex justify-center space-x-2">
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">React</span>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Vue</span>
+                                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">UI设计</span>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <!-- Team Member 5 -->
+                        <li class="splide__slide">
+                            <div class="team-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center animate-fade-in">
+                                <div class="avatar-placeholder">
+                                    <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">胡同学</h3>
+                                <div class="role-badge role-designer mb-4">多媒体制作</div>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                    负责AI视频制作和多媒体内容创作，专注于视觉传达和内容营销。
+                                    在视频编辑和社交媒体推广方面有专业经验。
+                                </p>
+                                <div class="flex justify-center space-x-2">
+                                    <span class="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs">视频编辑</span>
+                                    <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs">AI生成</span>
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">抖音</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Collaboration -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="serif-font text-3xl md:text-4xl font-bold text-slate-800 mb-6">团队协作</h2>
+                <p class="text-xl text-slate-600 max-w-4xl mx-auto">
+                    我们采用现代化的协作方式，确保项目高效推进和成果质量保证
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in">
+                    <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6">分工与合作</h3>
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-semibold text-lg text-blue-800 mb-2">明确分工</h4>
+                            <p class="text-blue-700">
+                                每位团队成员都有明确的职责分工，同时保持密切的协作沟通，
+                                确保各个环节的无缝衔接。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-semibold text-lg text-green-800 mb-2">定期会议</h4>
+                            <p class="text-green-700">
+                                定期举行项目进展会议，及时交流研究成果和遇到的问题，
+                                共同制定解决方案和下一步计划。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
+                            <h4 class="font-semibold text-lg text-orange-800 mb-2">资源共享</h4>
+                            <p class="text-orange-700">
+                                建立统一的资源库和知识分享平台，促进团队成员之间的
+                                学习和技能提升。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in">
+                    <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                        <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6 text-center">项目分工详情</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">李</div>
+                                    <span class="font-medium text-slate-800">气象数据对比分析</span>
+                                </div>
+                                <span class="text-sm text-slate-600">数据分析 + 可视化</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-sm font-bold">肖</div>
+                                    <span class="font-medium text-slate-800">AI极端高温分析</span>
+                                </div>
+                                <span class="text-sm text-slate-600">AI模型 + 幻觉检测</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-white text-sm font-bold">冯</div>
+                                    <span class="font-medium text-slate-800">爬虫与可视化</span>
+                                </div>
+                                <span class="text-sm text-slate-600">数据采集 + 多媒体</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">沈</div>
+                                    <span class="font-medium text-slate-800">AI网页制作</span>
+                                </div>
+                                <span class="text-sm text-slate-600">前端开发 + 设计</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center text-white text-sm font-bold">胡</div>
+                                    <span class="font-medium text-slate-800">AI视频制作</span>
+                                </div>
+                                <span class="text-sm text-slate-600">多媒体 + 社交媒体</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="serif-font text-3xl md:text-4xl font-bold text-slate-800 mb-6">联系我们</h2>
+                <p class="text-xl text-slate-600 max-w-4xl mx-auto">
+                    欢迎对极端高温与AI防灾研究感兴趣的同行和机构与我们交流合作
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center animate-fade-in">
+                    <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">邮箱联系</h3>
+                    <p class="text-slate-600">research@extreme-heat-ai.org</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">学术交流</h3>
+                    <p class="text-slate-600">欢迎学术合作和成果分享</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">技术支持</h3>
+                    <p class="text-slate-600">技术咨询和项目合作</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">AI</span>
+                    </div>
+                    <span class="serif-font font-bold text-xl">极端高温与AI防灾研究</span>
+                </div>
+                <p class="text-slate-400 mb-4">气象灾害学研究项目</p>
+                <p class="text-slate-500 text-sm">© 2024 极端高温与AI防灾研究项目团队. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        // Initialize team carousel
+        document.addEventListener('DOMContentLoaded', function() {
+            new Splide('#team-carousel', {
+                type: 'loop',
+                perPage: 3,
+                perMove: 1,
+                gap: '2rem',
+                autoplay: true,
+                interval: 4000,
+                pauseOnHover: true,
+                breakpoints: {
+                    1024: {
+                        perPage: 2,
+                    },
+                    640: {
+                        perPage: 1,
+                    }
+                }
+            }).mount();
+        });
+    </script>
+</body>
+</html>

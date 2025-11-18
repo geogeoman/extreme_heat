@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极端高温与AI防灾研究 | 气象灾害学研究项目</title>
+    <meta name="description" content="探索极端高温事件与AI技术在防灾减灾中的应用，突破传统温度监测思维，提升公众防灾意识">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-orange: #f97316;
+            --accent-green: #059669;
+            --neutral-light: #f8fafc;
+            --neutral-dark: #374151;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .serif-font {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(10px);
+            background: rgba(248, 250, 252, 0.9);
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease;
+        }
+        
+        #p5-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">AI</span>
+                    </div>
+                    <span class="serif-font font-bold text-xl text-slate-800">极端高温研究</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-blue-600 font-medium">首页</a>
+                    <a href="background.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究背景</a>
+                    <a href="methodology.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究方法</a>
+                    <a href="results.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究成果</a>
+                    <a href="team.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究团队</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
+            <div class="px-4 py-2 space-y-2">
+                <a href="index.html" class="block py-2 text-blue-600 font-medium">首页</a>
+                <a href="background.html" class="block py-2 text-slate-600">研究背景</a>
+                <a href="methodology.html" class="block py-2 text-slate-600">研究方法</a>
+                <a href="results.html" class="block py-2 text-slate-600">研究成果</a>
+                <a href="team.html" class="block py-2 text-slate-600">研究团队</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div id="p5-container" class="absolute inset-0"></div>
+        
+        <div class="hero-bg absolute inset-0"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="serif-font text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                    <span class="block">极端高温与</span>
+                    <span class="block text-gradient bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">AI防灾</span>
+                    <span class="block">研究项目</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
+                    突破传统温度监测思维，探索AI技术在极端高温防灾减灾中的创新应用，
+                    <br class="hidden md:block">为公众提供更全面的气象灾害预警服务
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="background.html" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl">
+                        了解研究背景
+                    </a>
+                    <a href="results.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        查看研究成果
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="serif-font text-3xl md:text-4xl font-bold text-slate-800 mb-6">项目概述</h2>
+                <p class="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+                    在全球变暖背景下，极端高温事件频发，对公众生活与防灾安全构成极大威胁。
+                    本项目通过AI技术突破传统温度监测局限，提供更精准的防灾预警服务。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="animate-fade-in card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">数据对比分析</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        分析中国气象站点数据与卫星反演结果，计算温度差异，识别高风险区域，
+                        为精准预警提供科学依据。
+                    </p>
+                </div>
+                
+                <div class="animate-fade-in card-hover bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-orange-600 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">AI智能分析</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        运用AI技术分析极端高温灾害事件，识别AI幻觉问题，
+                        提升预警系统的准确性和可靠性。
+                    </p>
+                </div>
+                
+                <div class="animate-fade-in card-hover bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">地理可视化</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        通过地理信息系统展示温度差异分布，直观呈现天气预报不准区域，
+                        为公众提供直观的防灾参考。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Problem -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in">
+                    <h2 class="serif-font text-3xl md:text-4xl font-bold text-slate-800 mb-6">核心问题</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-red-600 font-bold text-sm">1</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-slate-800 mb-2">天气预报温度与实际地表温度存在显著差异</h3>
+                                <p class="text-slate-600">传统温度测量在百叶箱内进行，避开太阳直射，而地表温度直接暴露在阳光下，存在明显温差。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-orange-600 font-bold text-sm">2</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-slate-800 mb-2">公众仅依赖天气预报温度作为防灾参考</h3>
+                                <p class="text-slate-600">大多数公众仅通过天气预报温度判断环境，可能低估地表高温带来的实际危害。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-yellow-600 font-bold text-sm">3</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-slate-800 mb-2">缺乏综合性的温度监测与预警系统</h3>
+                                <p class="text-slate-600">现有系统未能有效整合多源温度数据，无法提供全面的防灾预警服务。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6 text-center">温度差异示意图</h3>
+                        <div id="temperature-chart" class="h-80"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Impact -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="serif-font text-3xl md:text-4xl font-bold text-slate-800 mb-6">研究意义</h2>
+                <p class="text-xl text-slate-600 max-w-4xl mx-auto">
+                    本研究将推动气象灾害预警技术的创新发展，为保护公众生命财产安全提供科技支撑
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">提升公众意识</h3>
+                    <p class="text-slate-600">增强公众对极端高温危害的认知，提高防灾意识</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">精准预警</h3>
+                    <p class="text-slate-600">提供更精准的温度监测和灾害预警服务</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">技术创新</h3>
+                    <p class="text-slate-600">推动AI在气象灾害预警领域的技术创新</p>
+                </div>
+                
+                <div class="text-center animate-fade-in">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">社会影响</h3>
+                    <p class="text-slate-600">为社会经济发展提供气象安全保障</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gradient-to-br from-blue-600 to-blue-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h2 class="serif-font text-3xl md:text-4xl font-bold text-white mb-6">探索我们的研究</h2>
+                <p class="text-xl text-blue-100 mb-8 leading-relaxed">
+                    深入了解我们的研究方法、数据分析和技术创新，
+                    共同推进极端高温防灾预警技术的发展
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="methodology.html" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg">
+                        研究方法
+                    </a>
+                    <a href="results.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        研究成果
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">AI</span>
+                    </div>
+                    <span class="serif-font font-bold text-xl">极端高温与AI防灾研究</span>
+                </div>
+                <p class="text-slate-400 mb-4">气象灾害学研究项目</p>
+                <p class="text-slate-500 text-sm">© 2024 极端高温与AI防灾研究项目团队. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+</body>
+</html>
