@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>研究方法 | 极端高温与AI防灾研究</title>
     <meta name="description" content="了解我们的研究方法论，包括数据收集、AI分析技术和可视化方法">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Animation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    
+
     <!-- Custom Styles -->
     <style>
         :root {
@@ -28,42 +31,42 @@
             --neutral-light: #f8fafc;
             --neutral-dark: #374151;
         }
-        
+
         body {
             font-family: 'Noto Sans SC', sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         }
-        
+
         .serif-font {
             font-family: 'Noto Serif SC', serif;
         }
-        
+
         .nav-blur {
             backdrop-filter: blur(10px);
             background: rgba(248, 250, 252, 0.9);
         }
-        
+
         .animate-fade-in {
             opacity: 0;
             transform: translateY(30px);
         }
-        
+
         .animate-fade-in.visible {
             opacity: 1;
             transform: translateY(0);
             transition: all 0.8s ease;
         }
-        
+
         .method-card {
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
-        
+
         .method-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
-        
+
         .tech-badge {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
@@ -74,11 +77,11 @@
             display: inline-block;
             margin: 0.25rem;
         }
-        
+
         .workflow-step {
             position: relative;
         }
-        
+
         .workflow-step::after {
             content: '';
             position: absolute;
@@ -91,24 +94,26 @@
             border-bottom: 0.5rem solid transparent;
             transform: translateY(-50%);
         }
-        
+
         .workflow-step:last-child::after {
             display: none;
         }
     </style>
 </head>
+
 <body class="min-h-screen">
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">AI</span>
                     </div>
                     <span class="serif-font font-bold text-xl text-slate-800">极端高温研究</span>
                 </div>
-                
+
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-slate-600 hover:text-blue-600 transition-colors">首页</a>
                     <a href="background.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究背景</a>
@@ -116,17 +121,18 @@
                     <a href="results.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究成果</a>
                     <a href="team.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究团队</a>
                 </div>
-                
+
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-slate-600 hover:text-blue-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
             <div class="px-4 py-2 space-y-2">
@@ -163,34 +169,38 @@
                     我们的研究采用系统化的方法论，确保数据的准确性和分析的全面性
                 </p>
             </div>
-            
+
             <!-- Research Workflow -->
             <div class="grid md:grid-cols-4 gap-8 mb-16">
-                <div class="workflow-step method-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center animate-fade-in">
+                <div
+                    class="workflow-step method-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center animate-fade-in">
                     <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <span class="text-white font-bold text-xl">1</span>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-3">数据收集</h3>
                     <p class="text-slate-600 text-sm">收集气象站数据、卫星反演结果和历史温度记录</p>
                 </div>
-                
-                <div class="workflow-step method-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl text-center animate-fade-in">
+
+                <div
+                    class="workflow-step method-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl text-center animate-fade-in">
                     <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <span class="text-white font-bold text-xl">2</span>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-3">AI分析</h3>
                     <p class="text-slate-600 text-sm">运用机器学习和深度学习算法分析温度模式</p>
                 </div>
-                
-                <div class="workflow-step method-card bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl text-center animate-fade-in">
+
+                <div
+                    class="workflow-step method-card bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl text-center animate-fade-in">
                     <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <span class="text-white font-bold text-xl">3</span>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-3">可视化</h3>
                     <p class="text-slate-600 text-sm">创建交互式地图和图表展示分析结果</p>
                 </div>
-                
-                <div class="method-card bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl text-center animate-fade-in">
+
+                <div
+                    class="method-card bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl text-center animate-fade-in">
                     <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <span class="text-white font-bold text-xl">4</span>
                     </div>
@@ -210,12 +220,14 @@
                     采用多源数据融合策略，确保数据的全面性和可靠性
                 </p>
             </div>
-            
+
             <div class="grid lg:grid-cols-3 gap-8">
                 <div class="method-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">气象站数据</h3>
@@ -228,11 +240,13 @@
                         <div class="tech-badge">异常值检测</div>
                     </div>
                 </div>
-                
+
                 <div class="method-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">卫星遥感数据</h3>
@@ -245,11 +259,13 @@
                         <div class="tech-badge">数据融合</div>
                     </div>
                 </div>
-                
+
                 <div class="method-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">灾害事件数据</h3>
@@ -275,7 +291,7 @@
                     运用先进的机器学习和深度学习技术，提升温度预测和灾害预警的准确性
                 </p>
             </div>
-            
+
             <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
                 <div class="animate-fade-in">
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6">机器学习模型</h3>
@@ -290,7 +306,7 @@
                                 <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">回归分析</span>
                             </div>
                         </div>
-                        
+
                         <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
                             <h4 class="font-semibold text-lg text-green-800 mb-2">支持向量机 (SVM)</h4>
                             <p class="text-green-700 mb-3">
@@ -301,7 +317,7 @@
                                 <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">模式识别</span>
                             </div>
                         </div>
-                        
+
                         <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
                             <h4 class="font-semibold text-lg text-orange-800 mb-2">时间序列分析 (LSTM)</h4>
                             <p class="text-orange-700 mb-3">
@@ -314,7 +330,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="animate-fade-in">
                     <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                         <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6 text-center">AI模型性能对比</h3>
@@ -322,7 +338,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- AI Hallucination Detection -->
             <div class="bg-slate-50 rounded-xl p-8 animate-fade-in">
                 <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6 text-center">AI幻觉检测与处理</h3>
@@ -330,27 +346,32 @@
                     <div class="bg-white p-6 rounded-lg text-center">
                         <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z">
+                                </path>
                             </svg>
                         </div>
                         <h4 class="font-semibold text-lg text-slate-800 mb-2">地区错误</h4>
                         <p class="text-slate-600 text-sm">检测AI生成的地理位置信息错误，确保灾害定位的准确性</p>
                     </div>
-                    
+
                     <div class="bg-white p-6 rounded-lg text-center">
                         <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
                         <h4 class="font-semibold text-lg text-slate-800 mb-2">温度误报</h4>
                         <p class="text-slate-600 text-sm">识别不合理的温度数据，通过交叉验证确保温度信息的可信度</p>
                     </div>
-                    
+
                     <div class="bg-white p-6 rounded-lg text-center">
                         <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                </path>
                             </svg>
                         </div>
                         <h4 class="font-semibold text-lg text-slate-800 mb-2">灾情夸大</h4>
@@ -370,7 +391,7 @@
                     运用先进的可视化技术，直观展示复杂的数据分析结果
                 </p>
             </div>
-            
+
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="animate-fade-in">
                     <div class="bg-white rounded-xl shadow-lg p-8">
@@ -378,7 +399,7 @@
                         <div id="gis-demo-chart" class="h-80"></div>
                     </div>
                 </div>
-                
+
                 <div class="animate-fade-in">
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6">可视化工具与技术</h3>
                     <div class="space-y-6">
@@ -393,26 +414,28 @@
                                 <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">GeoJSON</span>
                             </div>
                         </div>
-                        
+
                         <div class="bg-white p-6 rounded-lg shadow-md">
                             <h4 class="font-semibold text-lg text-slate-800 mb-3">动态图表</h4>
                             <p class="text-slate-600 mb-3">
                                 运用ECharts.js创建动态、可交互的数据可视化图表，支持实时数据更新。
                             </p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">ECharts.js</span>
+                                <span
+                                    class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">ECharts.js</span>
                                 <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">D3.js</span>
                                 <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">实时更新</span>
                             </div>
                         </div>
-                        
+
                         <div class="bg-white p-6 rounded-lg shadow-md">
                             <h4 class="font-semibold text-lg text-slate-800 mb-3">3D可视化</h4>
                             <p class="text-slate-600 mb-3">
                                 使用Three.js创建三维温度分布模型，提供更直观的立体视觉效果。
                             </p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Three.js</span>
+                                <span
+                                    class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Three.js</span>
                                 <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">WebGL</span>
                                 <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">3D模型</span>
                             </div>
@@ -432,43 +455,51 @@
                     严格的质量控制流程确保研究结果的科学性和可靠性
                 </p>
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">数据验证</h3>
                     <p class="text-slate-600">多源数据交叉验证，确保数据准确性和一致性</p>
                 </div>
-                
+
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">模型调优</h3>
                     <p class="text-slate-600">超参数优化和交叉验证，提升模型性能和泛化能力</p>
                 </div>
-                
+
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">统计分析</h3>
                     <p class="text-slate-600">严格的统计检验和显著性测试，确保结果具有统计学意义</p>
                 </div>
-                
+
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">同行评议</h3>
@@ -483,7 +514,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="flex items-center justify-center space-x-2 mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">AI</span>
                     </div>
                     <span class="serif-font font-bold text-xl">极端高温与AI防灾研究</span>
@@ -498,90 +530,181 @@
     <script src="main.js"></script>
     <script>
         // Initialize methodology page specific charts
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initAIPerformanceChart();
             initGISDemoChart();
         });
-        
+
         function initAIPerformanceChart() {
             const chartElement = document.getElementById('ai-performance-chart');
             if (!chartElement) return;
-            
+
             const chart = echarts.init(chartElement);
-            
+
+            const models = ['豆包', 'Kimi', 'ChatGPT', 'Grok'];
+            const stationCounts = [9, 8, 2, 6];  // 站点数量
+            const tempDeviations = [0.12, 0.225, 0.8, 0.8];  // 气温偏差
+            const totalStations = 16;
+
             const option = {
                 title: {
-                    text: 'AI模型准确率对比',
+                    text: 'AI模型性能对比',
                     left: 'center',
                     textStyle: {
                         color: '#1e293b',
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: 'bold'
                     }
                 },
                 tooltip: {
                     trigger: 'axis',
-                    axisPointer: { type: 'shadow' }
+                    axisPointer: { type: 'shadow' },
+                    formatter: function (params) {
+                        let html = `<div style="font-weight:600;margin-bottom:6px">${params[0].axisValue}</div>`;
+                        params.forEach(p => {
+                            if (p.seriesName === '输出站点数') {
+                                html += `<div style="display:flex;align-items:center;gap:6px">
+                                    <span style="display:inline-block;width:10px;height:10px;background:${p.color};border-radius:2px"></span>
+                                    <span>${p.seriesName}: ${p.value}/${totalStations}</span>
+                                </div>`;
+                            } else {
+                                html += `<div style="display:flex;align-items:center;gap:6px">
+                                    <span style="display:inline-block;width:10px;height:10px;background:${p.color};border-radius:2px"></span>
+                                    <span>${p.seriesName}: ${p.value}°C</span>
+                                </div>`;
+                            }
+                        });
+                        return html;
+                    }
                 },
                 legend: {
-                    data: ['准确率', '召回率', 'F1分数'],
-                    bottom: 5
+                    data: ['输出站点数', '平均气温偏差'],
+                    bottom: 5,
+                    textStyle: { color: '#64748b' }
                 },
                 grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '15%',
+                    left: '8%',
+                    right: '8%',
+                    bottom: '18%',
+                    top: '18%',
                     containLabel: true
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['随机森林', 'SVM', 'LSTM', '神经网络', '集成学习'],
+                    data: models,
                     axisLine: { lineStyle: { color: '#cbd5e1' } },
-                    axisLabel: { color: '#64748b', rotate: 45 }
+                    axisLabel: {
+                        color: '#1e293b',
+                        fontSize: 13,
+                        fontWeight: 500
+                    },
+                    axisTick: { show: false }
                 },
-                yAxis: {
-                    type: 'value',
-                    name: '性能指标',
-                    min: 0,
-                    max: 100,
-                    axisLine: { lineStyle: { color: '#cbd5e1' } },
-                    axisLabel: { color: '#64748b' },
-                    splitLine: { lineStyle: { color: '#f1f5f9' } }
-                },
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '站点数量',
+                        nameTextStyle: { color: '#3b82f6', fontWeight: 500 },
+                        min: 0,
+                        max: 16,
+                        interval: 4,
+                        position: 'left',
+                        axisLine: {
+                            show: true,
+                            lineStyle: { color: '#3b82f6', width: 2 }
+                        },
+                        axisLabel: {
+                            color: '#3b82f6',
+                            formatter: '{value}'
+                        },
+                        splitLine: {
+                            lineStyle: { color: '#e2e8f0', type: 'dashed' }
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '气温偏差 (°C)',
+                        nameTextStyle: { color: '#f97316', fontWeight: 500 },
+                        min: 0,
+                        max: 1,
+                        interval: 0.2,
+                        position: 'right',
+                        axisLine: {
+                            show: true,
+                            lineStyle: { color: '#f97316', width: 2 }
+                        },
+                        axisLabel: {
+                            color: '#f97316',
+                            formatter: '{value}'
+                        },
+                        splitLine: { show: false }
+                    }
+                ],
                 series: [
                     {
-                        name: '准确率',
+                        name: '输出站点数',
                         type: 'bar',
-                        data: [92, 88, 85, 90, 94],
-                        itemStyle: { color: '#3b82f6' }
+                        yAxisIndex: 0,
+                        barWidth: '30%',
+                        data: stationCounts,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: '#60a5fa' },
+                                { offset: 1, color: '#3b82f6' }
+                            ]),
+                            borderRadius: [4, 4, 0, 0]
+                        },
+                        label: {
+                            show: true,
+                            position: 'top',
+                            formatter: function (params) {
+                                return params.value + '/' + totalStations;
+                            },
+                            color: '#3b82f6',
+                            fontWeight: 600,
+                            fontSize: 12
+                        }
                     },
                     {
-                        name: '召回率',
+                        name: '平均气温偏差',
                         type: 'bar',
-                        data: [89, 85, 82, 87, 91],
-                        itemStyle: { color: '#10b981' }
-                    },
-                    {
-                        name: 'F1分数',
-                        type: 'bar',
-                        data: [90, 86, 83, 88, 92],
-                        itemStyle: { color: '#f59e0b' }
+                        yAxisIndex: 1,
+                        barWidth: '30%',
+                        data: tempDeviations,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: '#fb923c' },
+                                { offset: 1, color: '#f97316' }
+                            ]),
+                            borderRadius: [4, 4, 0, 0]
+                        },
+                        label: {
+                            show: true,
+                            position: 'top',
+                            formatter: function (params) {
+                                return params.value + '°C';
+                            },
+                            color: '#f97316',
+                            fontWeight: 600,
+                            fontSize: 12
+                        }
                     }
                 ],
                 animation: true,
-                animationDuration: 2000
+                animationDuration: 1500,
+                animationEasing: 'elasticOut'
             };
-            
+
             chart.setOption(option);
             window.addEventListener('resize', () => chart.resize());
         }
-        
+
         function initGISDemoChart() {
             const chartElement = document.getElementById('gis-demo-chart');
             if (!chartElement) return;
-            
+
             const chart = echarts.init(chartElement);
-            
+
             // Generate sample data for China map
             const provinces = [
                 '北京', '天津', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江',
@@ -590,12 +713,12 @@
                 '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '台湾',
                 '香港', '澳门'
             ];
-            
+
             const data = provinces.map(province => ({
                 name: province,
                 value: Math.random() * 20 + 5 // Temperature difference 5-25°C
             }));
-            
+
             const option = {
                 title: {
                     text: '中国温度差异分布',
@@ -608,7 +731,7 @@
                 },
                 tooltip: {
                     trigger: 'item',
-                    formatter: function(params) {
+                    formatter: function (params) {
                         return `${params.name}<br/>温度差异: ${params.value.toFixed(1)}°C`;
                     }
                 },
@@ -638,7 +761,7 @@
                 animation: true,
                 animationDuration: 2000
             };
-            
+
             // Note: This requires China map data to be loaded
             // For demo purposes, we'll create a simple scatter plot instead
             const scatterOption = {
@@ -653,7 +776,7 @@
                 },
                 tooltip: {
                     trigger: 'item',
-                    formatter: function(params) {
+                    formatter: function (params) {
                         return `区域: ${params.data[3]}<br/>温度差异: ${params.data[2].toFixed(1)}°C`;
                     }
                 },
@@ -681,7 +804,7 @@
                 series: [{
                     name: '温度差异',
                     type: 'scatter',
-                    symbolSize: function(data) {
+                    symbolSize: function (data) {
                         return Math.sqrt(data[2]) * 3;
                     },
                     data: [
@@ -694,7 +817,7 @@
                         [126.5, 45.8, 11.2, '哈尔滨']
                     ],
                     itemStyle: {
-                        color: function(params) {
+                        color: function (params) {
                             const value = params.data[2];
                             if (value > 15) return '#ef4444';
                             if (value > 12) return '#f59e0b';
@@ -705,10 +828,11 @@
                 animation: true,
                 animationDuration: 2000
             };
-            
+
             chart.setOption(scatterOption);
             window.addEventListener('resize', () => chart.resize());
         }
     </script>
 </body>
+
 </html>
