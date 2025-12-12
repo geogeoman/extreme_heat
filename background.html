@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>研究背景 | 极端高温与AI防灾研究</title>
     <meta name="description" content="深入了解全球变暖背景下极端高温事件的频发趋势及其对公众生活与防灾安全的威胁">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Animation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    
+
     <!-- Custom Styles -->
     <style>
         :root {
@@ -28,60 +31,62 @@
             --neutral-light: #f8fafc;
             --neutral-dark: #374151;
         }
-        
+
         body {
             font-family: 'Noto Sans SC', sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         }
-        
+
         .serif-font {
             font-family: 'Noto Serif SC', serif;
         }
-        
+
         .nav-blur {
             backdrop-filter: blur(10px);
             background: rgba(248, 250, 252, 0.9);
         }
-        
+
         .animate-fade-in {
             opacity: 0;
             transform: translateY(30px);
         }
-        
+
         .animate-fade-in.visible {
             opacity: 1;
             transform: translateY(0);
             transition: all 0.8s ease;
         }
-        
+
         .bg-pattern {
             background-image: radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.1) 1px, transparent 0);
             background-size: 20px 20px;
         }
-        
+
         .research-card {
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
-        
+
         .research-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body class="min-h-screen">
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">AI</span>
                     </div>
                     <span class="serif-font font-bold text-xl text-slate-800">极端高温研究</span>
                 </div>
-                
+
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-slate-600 hover:text-blue-600 transition-colors">首页</a>
                     <a href="background.html" class="text-blue-600 font-medium">研究背景</a>
@@ -89,17 +94,18 @@
                     <a href="results.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究成果</a>
                     <a href="team.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究团队</a>
                 </div>
-                
+
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-slate-600 hover:text-blue-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
             <div class="px-4 py-2 space-y-2">
@@ -153,11 +159,20 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="animate-fade-in">
-                    <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                        <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6 text-center">全球温度变化趋势</h3>
-                        <div id="global-temp-chart" class="h-80"></div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+                        <h3 class="serif-font text-xl font-bold text-slate-800 mb-4 text-center">全球平均气温变化趋势 (1850-2024)
+                        </h3>
+                        <div class="datawrapper-embed" style="min-height: 420px;">
+                            <script type="text/javascript"
+                                src="https://datawrapper.dwcdn.net/Cpa3D/8/embed.js"></script>
+                        </div>
+                        <p class="text-xs text-slate-500 text-center mt-3">
+                            数据来源: <a href="https://wmo.int/resources/dashboards/global-mean-temperature-1850-2024"
+                                target="_blank" class="text-blue-600 hover:underline">World Meteorological Organization
+                                (WMO)</a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -173,12 +188,14 @@
                     传统天气预报温度与实际地表温度之间存在显著差异，这一科学问题亟待解决
                 </p>
             </div>
-            
+
             <div class="grid md:grid-cols-3 gap-8 mb-12">
                 <div class="research-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-4">测量对象不同</h3>
@@ -187,11 +204,13 @@
                         由于介质比热容的差异，地表温度可能比天气预报温度热很多或冷很多。
                     </p>
                 </div>
-                
+
                 <div class="research-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-4">测量环境差异</h3>
@@ -200,11 +219,12 @@
                         而地表直接暴露在阳光下，会吸收大量太阳辐射，导致温度显著升高。
                     </p>
                 </div>
-                
+
                 <div class="research-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-4">特殊情况</h3>
@@ -214,7 +234,7 @@
                     </p>
                 </div>
             </div>
-            
+
             <!-- Temperature Comparison Chart -->
             <div class="bg-white rounded-xl shadow-lg p-8 animate-fade-in">
                 <h3 class="serif-font text-2xl font-bold text-slate-800 mb-6 text-center">温度差异分析</h3>
@@ -232,14 +252,16 @@
                     解决温度测量差异问题对于提升防灾减灾能力具有重要意义
                 </p>
             </div>
-            
+
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="animate-fade-in">
                     <div class="space-y-8">
                         <div class="flex items-start space-x-4">
                             <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
                                 <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z">
+                                    </path>
                                 </svg>
                             </div>
                             <div>
@@ -250,11 +272,15 @@
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            <div
+                                class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    </path>
                                 </svg>
                             </div>
                             <div>
@@ -265,11 +291,15 @@
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            <div
+                                class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                    </path>
                                 </svg>
                             </div>
                             <div>
@@ -282,7 +312,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="animate-fade-in">
                     <div class="bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-xl border border-red-200">
                         <h3 class="serif-font text-2xl font-bold text-red-800 mb-6 text-center">高温灾害影响统计</h3>
@@ -294,7 +324,7 @@
                             <div class="w-full bg-red-200 rounded-full h-2">
                                 <div class="bg-red-600 h-2 rounded-full" style="width: 85%"></div>
                             </div>
-                            
+
                             <div class="flex justify-between items-center">
                                 <span class="text-red-700 font-medium">年均经济损失</span>
                                 <span class="text-2xl font-bold text-red-800">$500亿</span>
@@ -302,7 +332,7 @@
                             <div class="w-full bg-red-200 rounded-full h-2">
                                 <div class="bg-red-600 h-2 rounded-full" style="width: 70%"></div>
                             </div>
-                            
+
                             <div class="flex justify-between items-center">
                                 <span class="text-red-700 font-medium">高温相关死亡率</span>
                                 <span class="text-2xl font-bold text-red-800">+30%</span>
@@ -322,7 +352,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="flex items-center justify-center space-x-2 mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">AI</span>
                     </div>
                     <span class="serif-font font-bold text-xl">极端高温与AI防灾研究</span>
@@ -337,106 +368,21 @@
     <script src="main.js"></script>
     <script>
         // Initialize background page specific charts
-        document.addEventListener('DOMContentLoaded', function() {
-            initGlobalTempChart();
+        document.addEventListener('DOMContentLoaded', function () {
             initTempComparisonChart();
         });
-        
-        function initGlobalTempChart() {
-            const chartElement = document.getElementById('global-temp-chart');
-            if (!chartElement) return;
-            
-            const chart = echarts.init(chartElement);
-            
-            const option = {
-                title: {
-                    text: '全球平均温度异常 (1880-2023)',
-                    left: 'center',
-                    textStyle: {
-                        color: '#1e293b',
-                        fontSize: 14,
-                        fontWeight: 'bold'
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: function(params) {
-                        return `${params[0].axisValue}年<br/>温度异常: ${params[0].value}°C`;
-                    }
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '10%',
-                    containLabel: true
-                },
-                xAxis: {
-                    type: 'category',
-                    data: ['1880', '1900', '1920', '1940', '1960', '1980', '2000', '2020', '2023'],
-                    axisLine: {
-                        lineStyle: { color: '#cbd5e1' }
-                    },
-                    axisLabel: { color: '#64748b' }
-                },
-                yAxis: {
-                    type: 'value',
-                    name: '温度异常 (°C)',
-                    nameTextStyle: { color: '#64748b' },
-                    axisLine: {
-                        lineStyle: { color: '#cbd5e1' }
-                    },
-                    axisLabel: { color: '#64748b' },
-                    splitLine: {
-                        lineStyle: { color: '#f1f5f9' }
-                    }
-                },
-                series: [{
-                    name: '温度异常',
-                    type: 'line',
-                    data: [-0.16, -0.08, -0.27, 0.13, -0.03, 0.26, 0.61, 0.98, 1.17],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#ef4444',
-                        width: 3
-                    },
-                    itemStyle: {
-                        color: '#ef4444'
-                    },
-                    areaStyle: {
-                        color: {
-                            type: 'linear',
-                            x: 0, y: 0, x2: 0, y2: 1,
-                            colorStops: [
-                                { offset: 0, color: 'rgba(239, 68, 68, 0.3)' },
-                                { offset: 1, color: 'rgba(239, 68, 68, 0.05)' }
-                            ]
-                        }
-                    },
-                    markLine: {
-                        data: [
-                            { yAxis: 1.5, name: '巴黎协定目标', lineStyle: { color: '#dc2626', type: 'dashed' } }
-                        ]
-                    }
-                }],
-                animation: true,
-                animationDuration: 2000
-            };
-            
-            chart.setOption(option);
-            window.addEventListener('resize', () => chart.resize());
-        }
-        
+
         function initTempComparisonChart() {
             const chartElement = document.getElementById('temp-comparison-chart');
             if (!chartElement) return;
-            
+
             const chart = echarts.init(chartElement);
-            
+
             const hours = ['6:00', '8:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'];
             const forecastTemp = [22, 24, 28, 32, 34, 33, 30, 27];
             const groundTemp = [20, 26, 35, 45, 52, 48, 40, 32];
             const difference = groundTemp.map((gt, i) => gt - forecastTemp[i]);
-            
+
             const option = {
                 title: {
                     text: '天气预报温度 vs 地表温度对比',
@@ -517,7 +463,7 @@
                         yAxisIndex: 1,
                         data: difference,
                         itemStyle: {
-                            color: function(params) {
+                            color: function (params) {
                                 return params.value > 15 ? '#ef4444' : '#f59e0b';
                             }
                         }
@@ -526,10 +472,11 @@
                 animation: true,
                 animationDuration: 2000
             };
-            
+
             chart.setOption(option);
             window.addEventListener('resize', () => chart.resize());
         }
     </script>
 </body>
+
 </html>
