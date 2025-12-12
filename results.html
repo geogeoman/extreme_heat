@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>研究成果 | 极端高温与AI防灾研究</title>
     <meta name="description" content="查看我们的研究成果，包括数据分析、AI模型性能和实际应用效果">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Animation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-    
+
     <!-- Custom Styles -->
     <style>
         :root {
@@ -29,42 +32,42 @@
             --neutral-light: #f8fafc;
             --neutral-dark: #374151;
         }
-        
+
         body {
             font-family: 'Noto Sans SC', sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         }
-        
+
         .serif-font {
             font-family: 'Noto Serif SC', serif;
         }
-        
+
         .nav-blur {
             backdrop-filter: blur(10px);
             background: rgba(248, 250, 252, 0.9);
         }
-        
+
         .animate-fade-in {
             opacity: 0;
             transform: translateY(30px);
         }
-        
+
         .animate-fade-in.visible {
             opacity: 1;
             transform: translateY(0);
             transition: all 0.8s ease;
         }
-        
+
         .result-card {
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
-        
+
         .result-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
-        
+
         .placeholder-content {
             background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
             border: 2px dashed #94a3b8;
@@ -74,7 +77,7 @@
             min-height: 300px;
             border-radius: 0.75rem;
         }
-        
+
         .status-badge {
             padding: 0.5rem 1rem;
             border-radius: 9999px;
@@ -82,35 +85,37 @@
             font-weight: 500;
             display: inline-block;
         }
-        
+
         .status-in-progress {
             background: #fef3c7;
             color: #d97706;
         }
-        
+
         .status-completed {
             background: #d1fae5;
             color: #059669;
         }
-        
+
         .status-planned {
             background: #e0e7ff;
             color: #4338ca;
         }
     </style>
 </head>
+
 <body class="min-h-screen">
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">AI</span>
                     </div>
                     <span class="serif-font font-bold text-xl text-slate-800">极端高温研究</span>
                 </div>
-                
+
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-slate-600 hover:text-blue-600 transition-colors">首页</a>
                     <a href="background.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究背景</a>
@@ -118,17 +123,18 @@
                     <a href="results.html" class="text-blue-600 font-medium">研究成果</a>
                     <a href="team.html" class="text-slate-600 hover:text-blue-600 transition-colors">研究团队</a>
                 </div>
-                
+
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-slate-600 hover:text-blue-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
             <div class="px-4 py-2 space-y-2">
@@ -165,35 +171,45 @@
                     目前研究正在进行中，以下是预期的研究成果框架
                 </p>
             </div>
-            
+
             <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="result-card bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl text-center animate-fade-in">
+                <div
+                    class="result-card bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl text-center animate-fade-in">
                     <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">数据分析</h3>
                     <p class="text-slate-600 mb-4">气象数据对比分析和空间时序分析</p>
                     <span class="status-badge status-in-progress">进行中</span>
                 </div>
-                
-                <div class="result-card bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl text-center animate-fade-in">
+
+                <div
+                    class="result-card bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl text-center animate-fade-in">
                     <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">AI模型</h3>
                     <p class="text-slate-600 mb-4">极端高温事件AI分析和幻觉检测</p>
                     <span class="status-badge status-planned">计划中</span>
                 </div>
-                
-                <div class="result-card bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-xl text-center animate-fade-in">
+
+                <div
+                    class="result-card bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-xl text-center animate-fade-in">
                     <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">地理可视化</h3>
@@ -213,7 +229,7 @@
                     以下是本研究预期达到的主要成果和目标
                 </p>
             </div>
-            
+
             <div class="space-y-12">
                 <!-- Data Analysis Results -->
                 <div class="result-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
@@ -223,93 +239,97 @@
                             <div class="space-y-4">
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">识别出温度差异显著的地区和时段</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">建立温度差异的时空分布模型</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">分析影响温度差异的关键因素</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">提供高精度的温度差异预测</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="placeholder-content">
-                            <div class="text-center text-slate-500">
-                                <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                </svg>
-                                <p class="text-lg font-medium">数据分析结果图表</p>
-                                <p class="text-sm">研究结果将在完成后展示</p>
-                            </div>
+                        <div class="rounded-xl overflow-hidden shadow-lg">
+                            <img src="materials/analyse_res.png" alt="数据分析结果图表" class="w-full h-auto object-cover">
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- AI Analysis Results -->
                 <div class="result-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="grid lg:grid-cols-2 gap-8 items-center">
-                        <div class="placeholder-content">
-                            <div class="text-center text-slate-500">
-                                <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                                </svg>
-                                <p class="text-lg font-medium">AI模型性能分析</p>
-                                <p class="text-sm">模型训练和评估结果将在完成后展示</p>
-                            </div>
+                        <div class="rounded-xl overflow-hidden shadow-lg">
+                            <img src="materials/model_analyse.png" alt="AI模型性能分析" class="w-full h-auto object-cover">
                         </div>
                         <div>
                             <h3 class="serif-font text-2xl font-bold text-slate-800 mb-4">AI智能分析成果</h3>
                             <div class="space-y-4">
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">开发高效的极端高温事件识别模型</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">建立AI幻觉检测和纠正机制</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">实现实时灾害事件监测和预警</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">提供个性化的防灾建议和指南</span>
@@ -318,7 +338,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Visualization Results -->
                 <div class="result-card bg-white p-8 rounded-xl shadow-lg border border-slate-200 animate-fade-in">
                     <div class="grid lg:grid-cols-2 gap-8 items-center">
@@ -327,47 +347,49 @@
                             <div class="space-y-4">
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">创建交互式温度差异分布地图</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">识别和标记高温风险热点区域</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">提供动态时空变化可视化</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
                                     <span class="text-slate-700">支持多尺度地理信息查询</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="placeholder-content">
-                            <div class="text-center text-slate-500">
-                                <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <p class="text-lg font-medium">地理可视化地图</p>
-                                <p class="text-sm">交互式地图将在完成后展示</p>
-                            </div>
+                        <div class="rounded-xl overflow-hidden shadow-lg">
+                            <img src="materials/socialdata_visualization.png" alt="地理可视化地图"
+                                class="w-full h-auto object-cover">
                         </div>
                     </div>
                 </div>
@@ -384,42 +406,49 @@
                     研究成果将在多个领域发挥重要作用，为社会提供实际价值
                 </p>
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">公众服务</h3>
                     <p class="text-slate-600">为公众提供更准确的温度信息和防灾建议</p>
                 </div>
-                
+
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">政府决策</h3>
                     <p class="text-slate-600">为政府部门制定防灾减灾政策提供科学依据</p>
                 </div>
-                
+
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">应急响应</h3>
                     <p class="text-slate-600">提升应急响应系统的准确性和时效性</p>
                 </div>
-                
+
                 <div class="text-center animate-fade-in">
                     <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="serif-font text-xl font-bold text-slate-800 mb-2">学术研究</h3>
@@ -438,12 +467,14 @@
                     我们将持续更新研究成果和应用案例，
                     欢迎关注我们的最新进展和技术突破
                 </p>
-                
+
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="team.html" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg">
+                    <a href="team.html"
+                        class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg">
                         了解团队
                     </a>
-                    <a href="methodology.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
+                    <a href="methodology.html"
+                        class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
                         研究方法
                     </a>
                 </div>
@@ -456,7 +487,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="flex items-center justify-center space-x-2 mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-orange-500 rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">AI</span>
                     </div>
                     <span class="serif-font font-bold text-xl">极端高温与AI防灾研究</span>
@@ -470,4 +502,5 @@
     <!-- Scripts -->
     <script src="main.js"></script>
 </body>
+
 </html>
