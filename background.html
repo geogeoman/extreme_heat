@@ -162,15 +162,12 @@
 
                 <div class="animate-fade-in">
                     <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
-                        <div id="global-temp-chart-bg" style="height: 420px;"></div>
-                        <div class="flex flex-wrap items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                            <p class="text-xs text-slate-500">
-                                数据来源: <a href="https://wmo.int/resources/dashboards/global-mean-temperature-1850-2024"
-                                    target="_blank" class="text-blue-600 hover:underline">World Meteorological
-                                    Organization (WMO)</a>
-                            </p>
-                            <div id="share-buttons-bg"></div>
-                        </div>
+                        <div id="global-temp-chart-bg" style="height: 450px;"></div>
+                        <p class="text-xs text-slate-500 text-center mt-3">
+                            数据来源: <a href="https://wmo.int/resources/dashboards/global-mean-temperature-1850-2024"
+                                target="_blank" class="text-blue-600 hover:underline">World Meteorological Organization
+                                (WMO)</a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -546,9 +543,129 @@
     <script src="temperature-chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            initGlobalTemperatureChart('global-temp-chart-bg');
-            createShareButtons('share-buttons-bg', '全球气温变化趋势', window.location.href);
+            // 自定义无多源平均线的图表
+            initGlobalTemperatureChartSimple('global-temp-chart-bg');
         });
+
+        // 简化版图表（无多源平均线，优化布局）
+        function initGlobalTemperatureChartSimple(containerId) {
+            const chartElement = document.getElementById(containerId);
+            if (!chartElement) return;
+
+            const chart = echarts.init(chartElement);
+
+            const temperatureData = {
+                years: [1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+                berkeleyEarth: [-0.18, -0.15, -0.06, -0.07, -0.22, 0.12, -0.23, -0.01, 0.10, 0.31, 0.06, 0.21, 0.25, 0.54, 0.69, 0.68, 1.00, 1.15, 1.29, 1.19, 1.11, 1.25, 1.28, 1.12, 1.16, 1.45, 1.54],
+                era5: [null, null, null, null, null, null, null, null, null, 0.20, 0.12, 0.27, 0.31, 0.59, 0.75, 0.63, 1.01, 1.14, 1.32, 1.23, 1.15, 1.28, 1.32, 1.16, 1.18, 1.48, 1.60],
+                gistemp: [null, null, null, 0.10, -0.09, 0.18, -0.17, 0.00, 0.12, 0.39, 0.10, 0.24, 0.29, 0.52, 0.72, 0.66, 0.99, 1.16, 1.28, 1.19, 1.12, 1.24, 1.27, 1.11, 1.16, 1.44, 1.55],
+                hadcrut5: [-0.08, -0.05, 0.01, 0.02, -0.17, 0.11, -0.19, 0.04, 0.16, 0.42, 0.11, 0.22, 0.26, 0.54, 0.70, 0.67, 1.02, 1.17, 1.27, 1.19, 1.10, 1.23, 1.26, 1.10, 1.14, 1.44, 1.53],
+                jra3q: [null, null, null, null, null, null, null, null, null, null, 0.10, 0.28, 0.27, 0.53, 0.74, 0.68, 0.99, 1.15, 1.32, 1.20, 1.11, 1.25, 1.27, 1.08, 1.15, 1.47, 1.57],
+                noaa: [0.05, 0.02, 0.07, 0.07, -0.09, 0.19, -0.13, 0.02, 0.13, 0.40, 0.12, 0.25, 0.30, 0.56, 0.70, 0.66, 0.98, 1.16, 1.28, 1.19, 1.12, 1.23, 1.26, 1.11, 1.14, 1.43, 1.53]
+            };
+
+            const dataSourceNames = {
+                berkeleyEarth: 'Berkeley Earth',
+                era5: 'ERA5',
+                gistemp: 'GISTEMP',
+                hadcrut5: 'HadCRUT5',
+                jra3q: 'JRA-3Q',
+                noaa: 'NOAAGlobalTemp'
+            };
+
+            const dataSourceColors = {
+                berkeleyEarth: '#e74c3c',
+                era5: '#3498db',
+                gistemp: '#27ae60',
+                hadcrut5: '#9b59b6',
+                jra3q: '#f39c12',
+                noaa: '#1abc9c'
+            };
+
+            const series = Object.keys(dataSourceNames).map(key => ({
+                name: dataSourceNames[key],
+                type: 'line',
+                data: temperatureData[key],
+                smooth: true,
+                symbol: 'circle',
+                symbolSize: 5,
+                lineStyle: { width: 2, color: dataSourceColors[key] },
+                itemStyle: { color: dataSourceColors[key] },
+                emphasis: { focus: 'series', lineStyle: { width: 3 } },
+                connectNulls: true
+            }));
+
+            const option = {
+                backgroundColor: '#fff',
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255,255,255,0.95)',
+                    borderColor: '#e0e0e0',
+                    borderWidth: 1,
+                    textStyle: { color: '#333', fontSize: 12 },
+                    formatter: function (params) {
+                        let html = `<div style="font-weight:600;margin-bottom:6px;color:#1e3a8a">${params[0].axisValue}年</div>`;
+                        html += '<div style="font-size:11px;color:#666;margin-bottom:4px">相对于1850-1900年平均值的偏差</div>';
+                        params.forEach(p => {
+                            if (p.value !== null && p.value !== undefined) {
+                                const sign = p.value >= 0 ? '+' : '';
+                                html += `<div style="display:flex;align-items:center;margin:3px 0;font-size:12px">
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.color};margin-right:6px"></span>
+                                    <span style="flex:1">${p.seriesName}</span>
+                                    <span style="font-weight:600;color:${p.value >= 0 ? '#e74c3c' : '#3498db'}">${sign}${p.value}°C</span>
+                                </div>`;
+                            }
+                        });
+                        return html;
+                    }
+                },
+                legend: {
+                    bottom: 5,
+                    left: 'center',
+                    itemGap: 15,
+                    itemWidth: 18,
+                    itemHeight: 8,
+                    textStyle: { fontSize: 11, color: '#666' },
+                    data: Object.values(dataSourceNames)
+                },
+                grid: {
+                    left: 70,
+                    right: 20,
+                    top: 30,
+                    bottom: 60
+                },
+                xAxis: {
+                    type: 'category',
+                    data: temperatureData.years,
+                    axisLine: { lineStyle: { color: '#ccc' } },
+                    axisTick: { alignWithLabel: true },
+                    axisLabel: { color: '#666', fontSize: 10, rotate: 0 }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '相对1850-1900年平均值偏差 (°C)',
+                    nameLocation: 'middle',
+                    nameGap: 50,
+                    nameTextStyle: { color: '#666', fontSize: 11 },
+                    min: -0.5,
+                    max: 2.0,
+                    interval: 0.5,
+                    axisLine: { show: true, lineStyle: { color: '#ccc' } },
+                    axisLabel: {
+                        color: '#666',
+                        fontSize: 10,
+                        formatter: v => v >= 0 ? '+' + v.toFixed(1) : v.toFixed(1)
+                    },
+                    splitLine: { lineStyle: { color: '#f0f0f0', type: 'dashed' } }
+                },
+                series: series,
+                animation: true,
+                animationDuration: 1500
+            };
+
+            chart.setOption(option);
+            window.addEventListener('resize', () => chart.resize());
+        }
     </script>
 </body>
 
