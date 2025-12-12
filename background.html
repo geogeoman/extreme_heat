@@ -162,17 +162,15 @@
 
                 <div class="animate-fade-in">
                     <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
-                        <h3 class="serif-font text-xl font-bold text-slate-800 mb-4 text-center">全球平均气温变化趋势 (1850-2024)
-                        </h3>
-                        <div class="datawrapper-embed" style="min-height: 420px;">
-                            <script type="text/javascript"
-                                src="https://datawrapper.dwcdn.net/Cpa3D/8/embed.js"></script>
+                        <div id="global-temp-chart-bg" style="height: 420px;"></div>
+                        <div class="flex flex-wrap items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                            <p class="text-xs text-slate-500">
+                                数据来源: <a href="https://wmo.int/resources/dashboards/global-mean-temperature-1850-2024"
+                                    target="_blank" class="text-blue-600 hover:underline">World Meteorological
+                                    Organization (WMO)</a>
+                            </p>
+                            <div id="share-buttons-bg"></div>
                         </div>
-                        <p class="text-xs text-slate-500 text-center mt-3">
-                            数据来源: <a href="https://wmo.int/resources/dashboards/global-mean-temperature-1850-2024"
-                                target="_blank" class="text-blue-600 hover:underline">World Meteorological Organization
-                                (WMO)</a>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -316,30 +314,98 @@
                 <div class="animate-fade-in">
                     <div class="bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-xl border border-red-200">
                         <h3 class="serif-font text-2xl font-bold text-red-800 mb-6 text-center">高温灾害影响统计</h3>
-                        <div class="space-y-6">
-                            <div class="flex justify-between items-center">
-                                <span class="text-red-700 font-medium">全球受影响人口</span>
-                                <span class="text-2xl font-bold text-red-800">10亿+</span>
-                            </div>
-                            <div class="w-full bg-red-200 rounded-full h-2">
-                                <div class="bg-red-600 h-2 rounded-full" style="width: 85%"></div>
-                            </div>
 
-                            <div class="flex justify-between items-center">
-                                <span class="text-red-700 font-medium">年均经济损失</span>
-                                <span class="text-2xl font-bold text-red-800">$500亿</span>
+                        <!-- 全球工人暴露情况 -->
+                        <div class="mb-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-red-700 font-medium">全球劳动力高温暴露率</span>
+                                <span class="text-2xl font-bold text-red-800">71%</span>
                             </div>
-                            <div class="w-full bg-red-200 rounded-full h-2">
-                                <div class="bg-red-600 h-2 rounded-full" style="width: 70%"></div>
+                            <div class="w-full bg-red-200 rounded-full h-2.5">
+                                <div class="bg-red-600 h-2.5 rounded-full" style="width: 71%"></div>
                             </div>
+                            <p class="text-xs text-red-600 mt-1">2020年数据：2.31亿工人暴露于热浪，较2000年增加66%</p>
+                        </div>
 
-                            <div class="flex justify-between items-center">
-                                <span class="text-red-700 font-medium">高温相关死亡率</span>
-                                <span class="text-2xl font-bold text-red-800">+30%</span>
+                        <!-- 各地区暴露率 -->
+                        <div class="mb-6 bg-white/50 rounded-lg p-4">
+                            <h4 class="text-sm font-semibold text-red-800 mb-3">各地区劳动力高温暴露率 (2020)</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-slate-700">非洲</span>
+                                        <span class="font-semibold text-red-700">92.9%</span>
+                                    </div>
+                                    <div class="w-full bg-red-100 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 92.9%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-slate-700">阿拉伯地区</span>
+                                        <span class="font-semibold text-orange-700">83.6%</span>
+                                    </div>
+                                    <div class="w-full bg-orange-100 rounded-full h-2">
+                                        <div class="bg-orange-500 h-2 rounded-full" style="width: 83.6%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-slate-700">亚太地区</span>
+                                        <span class="font-semibold text-amber-700">74.7%</span>
+                                    </div>
+                                    <div class="w-full bg-amber-100 rounded-full h-2">
+                                        <div class="bg-amber-500 h-2 rounded-full" style="width: 74.7%"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="w-full bg-red-200 rounded-full h-2">
-                                <div class="bg-red-600 h-2 rounded-full" style="width: 60%"></div>
+                        </div>
+
+                        <!-- 关键数据卡片 -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-white/60 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-red-800">4,200</div>
+                                <div class="text-sm text-red-700">2020年热浪致死工人数</div>
                             </div>
+                            <div class="bg-white/60 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-orange-700">$3,610亿</div>
+                                <div class="text-sm text-orange-600">可避免的潜在经济损失</div>
+                            </div>
+                            <div class="bg-white/60 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-amber-700">+17.3%</div>
+                                <div class="text-sm text-amber-600">欧洲/中亚暴露率增幅</div>
+                                <div class="text-xs text-slate-500">2000-2020年，全球最快</div>
+                            </div>
+                            <div class="bg-white/60 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-rose-700">1.5%</div>
+                                <div class="text-sm text-rose-600">中低收入国家GDP损失</div>
+                                <div class="text-xs text-slate-500">因工作场所过热伤害</div>
+                            </div>
+                        </div>
+
+                        <!-- 重要提示 -->
+                        <div class="bg-red-100 border-l-4 border-red-500 p-3 rounded-r-lg mb-4">
+                            <p class="text-sm text-red-800">
+                                <span
+                                    class="font-semibold">重要发现：</span>90%的工人高温暴露发生在<strong>非热浪期间</strong>，约80%的极端高温工伤事故也发生在非热浪期间。
+                            </p>
+                        </div>
+
+                        <!-- 数据来源 -->
+                        <div class="text-center pt-4 border-t border-red-200">
+                            <p class="text-xs text-slate-500">
+                                数据来源: <a
+                                    href="https://www.ilo.org/resource/news/more-workers-ever-are-losing-fight-against-heat-stress"
+                                    target="_blank"
+                                    class="text-blue-600 hover:underline inline-flex items-center gap-1">
+                                    International Labour Organization (ILO)
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -476,6 +542,13 @@
             chart.setOption(option);
             window.addEventListener('resize', () => chart.resize());
         }
+    </script>
+    <script src="temperature-chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initGlobalTemperatureChart('global-temp-chart-bg');
+            createShareButtons('share-buttons-bg', '全球气温变化趋势', window.location.href);
+        });
     </script>
 </body>
 
