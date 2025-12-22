@@ -1,88 +1,84 @@
 /**
  * 全球平均气温变化图表 (1850-2024)
  * 数据来源: World Meteorological Organization (WMO)
- * 基于 ECharts 实现的交互式可视化
+ * 极端高温可视化图表组件库
+ * 基于 ECharts 封装，支持多源气象数据对比与交互
  */
 
-// 温度数据 - 来自 WMO 官方数据
-const temperatureData = {
+// 默认配置与示例数据
+const DEFAULT_CONFIG = {
+    colors: {
+        berkeleyEarth: '#e74c3c',
+        era5: '#3498db',
+        gistemp: '#27ae60',
+        hadcrut5: '#9b59b6',
+        jra3q: '#f39c12',
+        noaa: '#1abc9c',
+        avg: '#2c3e50',
+        targetLine: '#e74c3c'
+    },
+    names: {
+        berkeleyEarth: 'Berkeley Earth',
+        era5: 'ERA5',
+        gistemp: 'GISTEMP',
+        hadcrut5: 'HadCRUT5',
+        jra3q: 'JRA-3Q',
+        noaa: 'NOAAGlobalTemp'
+    }
+};
+
+// 内置 WMO 官方示例数据 (1850-2024)
+const MOCK_DATA = {
     years: [1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
-    // Berkeley Earth 数据源
     berkeleyEarth: [-0.18, -0.15, -0.06, -0.07, -0.22, 0.12, -0.23, -0.01, 0.10, 0.31, 0.06, 0.21, 0.25, 0.54, 0.69, 0.68, 1.00, 1.15, 1.29, 1.19, 1.11, 1.25, 1.28, 1.12, 1.16, 1.45, 1.54],
-    // ERA5 再分析数据
     era5: [null, null, null, null, null, null, null, null, null, 0.20, 0.12, 0.27, 0.31, 0.59, 0.75, 0.63, 1.01, 1.14, 1.32, 1.23, 1.15, 1.28, 1.32, 1.16, 1.18, 1.48, 1.60],
-    // GISTEMP (NASA)
     gistemp: [null, null, null, 0.10, -0.09, 0.18, -0.17, 0.00, 0.12, 0.39, 0.10, 0.24, 0.29, 0.52, 0.72, 0.66, 0.99, 1.16, 1.28, 1.19, 1.12, 1.24, 1.27, 1.11, 1.16, 1.44, 1.55],
-    // HadCRUT5 (英国气象局)
     hadcrut5: [-0.08, -0.05, 0.01, 0.02, -0.17, 0.11, -0.19, 0.04, 0.16, 0.42, 0.11, 0.22, 0.26, 0.54, 0.70, 0.67, 1.02, 1.17, 1.27, 1.19, 1.10, 1.23, 1.26, 1.10, 1.14, 1.44, 1.53],
-    // JRA-3Q (日本气象厅)
     jra3q: [null, null, null, null, null, null, null, null, null, null, 0.10, 0.28, 0.27, 0.53, 0.74, 0.68, 0.99, 1.15, 1.32, 1.20, 1.11, 1.25, 1.27, 1.08, 1.15, 1.47, 1.57],
-    // NOAAGlobalTemp
     noaa: [0.05, 0.02, 0.07, 0.07, -0.09, 0.19, -0.13, 0.02, 0.13, 0.40, 0.12, 0.25, 0.30, 0.56, 0.70, 0.66, 0.98, 1.16, 1.28, 1.19, 1.12, 1.23, 1.26, 1.11, 1.14, 1.43, 1.53]
 };
 
-// 数据源名称映射（保持原名）
-const dataSourceNames = {
-    berkeleyEarth: 'Berkeley Earth',
-    era5: 'ERA5',
-    gistemp: 'GISTEMP',
-    hadcrut5: 'HadCRUT5',
-    jra3q: 'JRA-3Q',
-    noaa: 'NOAAGlobalTemp'
-};
-
-// 数据源颜色
-const dataSourceColors = {
-    berkeleyEarth: '#e74c3c',
-    era5: '#3498db',
-    gistemp: '#27ae60',
-    hadcrut5: '#9b59b6',
-    jra3q: '#f39c12',
-    noaa: '#1abc9c'
-};
-
 /**
- * 初始化全球气温变化图表
- * @param {string} containerId - 图表容器元素ID
+ * 初始化全球气温变化图表组件
+ * @param {string} containerId - DOM容器ID
+ * @param {Object} [data] - 自定义数据对象 (可选，默认使用内置 WMO 数据)
+ * @param {Object} [options] - 配置项 (可选)
+ * @returns {Object} ECharts 实例
  */
-function initGlobalTemperatureChart(containerId) {
+function initGlobalTemperatureChart(containerId, data = MOCK_DATA, options = {}) {
     const chartElement = document.getElementById(containerId);
-    if (!chartElement) return;
+    if (!chartElement) {
+        console.error(`Chart container #${containerId} not found.`);
+        return null;
+    }
 
+    // 合并配置
+    const config = { ...DEFAULT_CONFIG, ...options };
     const chart = echarts.init(chartElement);
 
-    // 创建系列数据
-    const series = Object.keys(dataSourceNames).map(key => ({
-        name: dataSourceNames[key],
-        type: 'line',
-        data: temperatureData[key],
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 6,
-        lineStyle: {
-            width: 2,
-            color: dataSourceColors[key]
-        },
-        itemStyle: {
-            color: dataSourceColors[key]
-        },
-        emphasis: {
-            focus: 'series',
-            lineStyle: { width: 3 }
-        },
-        connectNulls: true
-    }));
+    // 构建 Series 数据
+    const series = Object.keys(config.names).map(key => {
+        // 如果数据源中没有该 key，则跳过或填充空
+        const seriesData = data[key] || [];
+        return {
+            name: config.names[key],
+            type: 'line',
+            data: seriesData,
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 6,
+            lineStyle: { width: 2, color: config.colors[key] },
+            itemStyle: { color: config.colors[key] },
+            emphasis: { focus: 'series', lineStyle: { width: 3 } },
+            connectNulls: true
+        };
+    });
 
-    // 添加多数据源平均线
-    const avgData = temperatureData.years.map((year, i) => {
-        const values = [
-            temperatureData.berkeleyEarth[i],
-            temperatureData.era5[i],
-            temperatureData.gistemp[i],
-            temperatureData.hadcrut5[i],
-            temperatureData.jra3q[i],
-            temperatureData.noaa[i]
-        ].filter(v => v !== null);
+    // 自动计算多源平均线
+    const avgData = data.years.map((year, i) => {
+        const values = Object.keys(config.names)
+            .map(key => data[key] ? data[key][i] : null)
+            .filter(v => v !== null && v !== undefined);
         return values.length > 0 ? (values.reduce((a, b) => a + b, 0) / values.length).toFixed(2) : null;
     });
 
@@ -93,18 +89,9 @@ function initGlobalTemperatureChart(containerId) {
         smooth: true,
         symbol: 'diamond',
         symbolSize: 8,
-        lineStyle: {
-            width: 4,
-            color: '#2c3e50',
-            type: 'solid'
-        },
-        itemStyle: {
-            color: '#2c3e50'
-        },
-        emphasis: {
-            focus: 'series',
-            lineStyle: { width: 5 }
-        },
+        lineStyle: { width: 4, color: config.colors.avg, type: 'solid' },
+        itemStyle: { color: config.colors.avg },
+        emphasis: { focus: 'series', lineStyle: { width: 5 } },
         z: 10
     });
 
@@ -114,23 +101,19 @@ function initGlobalTemperatureChart(containerId) {
             trigger: 'axis',
             backgroundColor: 'rgba(255,255,255,0.95)',
             borderColor: '#e0e0e0',
-            borderWidth: 1,
-            padding: [12, 16],
-            textStyle: {
-                color: '#333',
-                fontSize: 13
-            },
+            textStyle: { color: '#333', fontSize: 13 },
             formatter: function (params) {
                 let html = `<div style="font-weight:600;margin-bottom:8px;color:#1e3a8a">${params[0].axisValue}年</div>`;
-                html += '<div style="font-size:12px;color:#666;margin-bottom:6px">相对于1850-1900年平均值的偏差</div>';
+                html += '<div style="font-size:12px;color:#666;margin-bottom:6px">偏差值 (相对于1850-1900)</div>';
                 params.forEach(p => {
-                    if (p.value !== null && p.value !== undefined) {
-                        const color = p.color;
+                    if (p.value != null) {
                         const sign = p.value >= 0 ? '+' : '';
-                        html += `<div style="display:flex;align-items:center;margin:4px 0">
-                            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};margin-right:8px"></span>
-                            <span style="flex:1">${p.seriesName}</span>
-                            <span style="font-weight:600;color:${p.value >= 0 ? '#e74c3c' : '#3498db'}">${sign}${p.value}°C</span>
+                        html += `<div style="display:flex;justify-content:space-between;align-items:center;min-width:160px;margin:4px 0">
+                            <span style="display:flex;align-items:center">
+                                <span style="width:10px;height:10px;border-radius:50%;background:${p.color};margin-right:8px"></span>
+                                ${p.seriesName}
+                            </span>
+                            <span style="font-weight:bold;color:${p.value >= 0 ? '#e74c3c' : '#3498db'}">${sign}${p.value}°C</span>
                         </div>`;
                     }
                 });
@@ -140,115 +123,35 @@ function initGlobalTemperatureChart(containerId) {
         legend: {
             type: 'scroll',
             bottom: 10,
-            left: 'center',
-            itemGap: 20,
-            itemWidth: 20,
-            itemHeight: 10,
-            textStyle: {
-                fontSize: 12,
-                color: '#666'
-            },
-            pageTextStyle: {
-                color: '#666'
-            },
-            data: [...Object.values(dataSourceNames), '多源平均']
+            data: [...Object.values(config.names), '多源平均']
         },
-        grid: {
-            left: 60,
-            right: 40,
-            top: 40,
-            bottom: 80,
-            containLabel: false
-        },
+        grid: { left: 50, right: 40, top: 40, bottom: 80, containLabel: true },
         xAxis: {
             type: 'category',
-            data: temperatureData.years,
-            axisLine: {
-                lineStyle: { color: '#ccc' }
-            },
-            axisTick: {
-                alignWithLabel: true,
-                lineStyle: { color: '#ccc' }
-            },
-            axisLabel: {
-                color: '#666',
-                fontSize: 11,
-                rotate: 45
-            },
-            splitLine: { show: false }
+            data: data.years,
+            axisLabel: { rotate: 45, color: '#666' }
         },
         yAxis: {
             type: 'value',
-            name: '相对1850-1900年\n平均值偏差 (°C)',
+            name: '温度偏差 (°C)',
             nameLocation: 'middle',
-            nameGap: 45,
-            nameTextStyle: {
-                color: '#666',
-                fontSize: 12,
-                fontWeight: 'normal'
-            },
-            min: -0.5,
-            max: 2.0,
-            interval: 0.5,
-            axisLine: {
-                show: true,
-                lineStyle: { color: '#ccc' }
-            },
-            axisTick: {
-                show: true,
-                lineStyle: { color: '#ccc' }
-            },
-            axisLabel: {
-                color: '#666',
-                fontSize: 11,
-                formatter: function (v) {
-                    return v >= 0 ? '+' + v.toFixed(1) : v.toFixed(1);
-                }
-            },
-            splitLine: {
-                lineStyle: {
-                    color: '#f0f0f0',
-                    type: 'dashed'
-                }
-            }
+            nameGap: 40,
+            axisLabel: { formatter: v => v >= 0 ? '+' + v : v }
         },
         series: series,
-        // 标记线 - 巴黎协定目标
         graphic: [{
             type: 'group',
-            left: 65,
-            top: 60,
-            children: [{
-                type: 'line',
-                shape: { x1: 0, y1: 0, x2: 600, y2: 0 },
-                style: {
-                    stroke: '#e74c3c',
-                    lineDash: [5, 3],
-                    lineWidth: 1.5
-                },
-                z: 100
-            }, {
-                type: 'text',
-                left: 5,
-                top: -18,
-                style: {
-                    text: '巴黎协定1.5°C目标线',
-                    fill: '#e74c3c',
-                    fontSize: 11,
-                    fontWeight: 500
-                }
-            }]
+            left: 70, top: 60,
+            children: [
+                { type: 'line', shape: { x1: 0, y1: 0, x2: 600, y2: 0 }, style: { stroke: config.colors.targetLine, lineDash: [5, 3] } },
+                { type: 'text', left: 5, top: -18, style: { text: '1.5°C 警戒线', fill: config.colors.targetLine } }
+            ]
         }],
-        animation: true,
-        animationDuration: 1500,
         animationEasing: 'cubicOut'
     };
 
     chart.setOption(option);
-
-    // 响应式调整
     window.addEventListener('resize', () => chart.resize());
-
     return chart;
 }
 
@@ -303,3 +206,4 @@ function createShareButtons(containerId, title, url) {
     // 暴露分享处理函数到全局
     window.shareHandlers = platforms.map(p => p.action);
 }
+
