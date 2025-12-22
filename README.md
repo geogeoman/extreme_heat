@@ -1,6 +1,3 @@
-# extreme_heat
-A webpage made by large language model.
-
 # 【Web 前端实战】基于 ECharts 与 Anime.js 的极端高温 AI 防灾可视化交互项目（含自研图表组件）
 
 ## 项目简介
